@@ -8,18 +8,39 @@ const App = () => {
   const [completed, setCompleted] = useState(false);
   const [Confetti, setConfetti] = useState(null);
 
+  // Load progress and title from localStorage when the app starts
+  useEffect(() => {
+    const storedProgress = JSON.parse(localStorage.getItem('progress'));
+    const storedTitle = localStorage.getItem('title');
+    const storedDays = localStorage.getItem('days');
+    const isCompleted = localStorage.getItem('completed') === 'true';
+
+    if (storedProgress) setProgress(storedProgress);
+    if (storedTitle) setTitle(storedTitle);
+    if (storedDays) setDays(storedDays);
+    setCompleted(isCompleted);
+  }, []);
+
+  // Save progress, title, and days to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('progress', JSON.stringify(progress));
+    localStorage.setItem('title', title);
+    localStorage.setItem('days', days);
+    localStorage.setItem('completed', completed.toString());
+  }, [progress, title, days, completed]);
+
+  // Dynamically load the Confetti component when the task is completed
   useEffect(() => {
     if (completed) {
-      // Dynamically import react-confetti only when needed
       import('react-confetti').then((module) => {
-        setConfetti(module.default);  // Set the Confetti component dynamically
+        setConfetti(module.default);
       });
     }
   }, [completed]);
 
   const handleStart = () => {
     if (title && days > 0) {
-      setProgress(new Array(parseInt(days, 10)).fill(false)); 
+      setProgress(new Array(parseInt(days, 10)).fill(false));
       setCompleted(false);
     }
   };
@@ -31,7 +52,7 @@ const App = () => {
       setProgress(updatedProgress);
 
       if (updatedProgress.every((day) => day)) {
-        setCompleted(true);  // Set completed to true when all days are completed
+        setCompleted(true); // Set completed to true when all days are completed
       }
     }
   };
