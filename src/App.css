@@ -1,3 +1,4 @@
+/* App.css */
 .app {
   font-family: Arial, sans-serif;
   text-align: center;
@@ -5,7 +6,7 @@
 }
 
 .input-container {
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Increased space at the bottom of the input container */
 }
 
 input {
@@ -21,21 +22,37 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  width: 150px; /* Set both buttons to the same width */
 }
 
 button:hover {
   background-color: #5ab385;
 }
 
-.progress-container {
-  margin-top: 20px;
+.clear-button {
+  background-color: #ff4d4d; /* Red color for the Clear button */
+  color: white;
+}
+
+.clear-button:hover {
+  background-color: #ff3333; /* Darker red on hover */
+}
+
+/* Add space between Start Tracking and Clear buttons */
+.input-container button {
+  margin-bottom: 15px; /* Add margin at the bottom of both buttons */
+}
+
+.input-container button:first-child {
+  margin-right: 20px;  /* Space between the "Start Tracking" and "Clear" buttons */
 }
 
 .streaks {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); 
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Adjust the minimum size for the grid items */
   justify-items: center;
-  gap: 10px;
+  gap: 20px; /* Uniform gap between all streak items */
   margin: 0 auto;
   max-width: 650px;
 }
@@ -108,6 +125,9 @@ h3 {
   .day-number {
     font-size: 12px;
   }
+  button {
+    width: 180px; /* Slightly smaller buttons for tablet view */
+  }
 }
 
 @media (max-width: 480px) {
@@ -117,5 +137,8 @@ h3 {
   }
   .day-number {
     font-size: 10px;
+  }
+  button {
+    width: 160px; /* Smaller buttons for mobile */
   }
 }

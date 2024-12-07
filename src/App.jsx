@@ -6,6 +6,7 @@ const App = () => {
   const [days, setDays] = useState('');
   const [progress, setProgress] = useState([]);
   const [completed, setCompleted] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
   const [Confetti, setConfetti] = useState(null);
 
   // Load progress and title from localStorage when the app starts
@@ -34,6 +35,11 @@ const App = () => {
     if (completed) {
       import('react-confetti').then((module) => {
         setConfetti(module.default);
+        setShowConfetti(true); // Show confetti when task is completed
+        // Stop the confetti after 7 seconds (or adjust time as needed)
+        setTimeout(() => {
+          setShowConfetti(false); // Hide confetti after it has fallen
+        }, 7000); // Time in milliseconds (7 seconds)
       });
     }
   }, [completed]);
@@ -43,6 +49,20 @@ const App = () => {
       setProgress(new Array(parseInt(days, 10)).fill(false));
       setCompleted(false);
     }
+  };
+
+  const handleClear = () => {
+    // Reset the React state without affecting localStorage
+    setTitle('');
+    setDays('');
+    setProgress([]);
+    setCompleted(false);
+
+    // Optionally, clear localStorage if you want to fully reset everything
+    // localStorage.removeItem('progress');
+    // localStorage.removeItem('title');
+    // localStorage.removeItem('days');
+    // localStorage.removeItem('completed');
   };
 
   const markDay = (index) => {
@@ -79,6 +99,7 @@ const App = () => {
           }}
         />
         <button onClick={handleStart}>Start Tracking</button>
+        <button onClick={handleClear} className="clear-button">Clear</button>
       </div>
 
       {progress.length > 0 && (
@@ -99,7 +120,9 @@ const App = () => {
           {completed && (
             <>
               <h3 className="congratulations">🎉 Congratulations! 🎉</h3>
-              {Confetti && <Confetti width={window.innerWidth} height={window.innerHeight} />}
+              {showConfetti && Confetti && (
+                <Confetti width={window.innerWidth} height={window.innerHeight} />
+              )}
             </>
           )}
         </div>
