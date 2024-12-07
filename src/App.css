@@ -48,6 +48,34 @@ button:hover {
   margin-right: 20px;  /* Space between the "Start Tracking" and "Clear" buttons */
 }
 
+/* App.css */
+/* App.css */
+.popup-message {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 128, 0, 0.8); /* Green background */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.popup-message p {
+  margin: 0;
+}
+
+/* Optional fade-out effect after 3 seconds */
+.popup-message.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+
 .streaks {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Adjust the minimum size for the grid items */
