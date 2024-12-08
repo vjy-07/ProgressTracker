@@ -8,8 +8,9 @@ const App = () => {
   const [completed, setCompleted] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [Confetti, setConfetti] = useState(null);
-  const [showPopup, setShowPopup] = useState(false);  // State to control popup visibility
-  const [popupMessage, setPopupMessage] = useState('');  // State for the popup message
+  const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
+  const [popupMessage, setPopupMessage] = useState(''); // State for the popup message
+  const [popupTop, setPopupTop] = useState(0); // Dynamic top position for popup
 
   // Load progress and title from localStorage when the app starts
   useEffect(() => {
@@ -30,8 +31,10 @@ const App = () => {
     localStorage.setItem('title', title);
     localStorage.setItem('days', days);
     localStorage.setItem('completed', completed.toString());
+  }, [progress, title, days, completed]);
 
-    // Dynamically load the Confetti component when the task is completed
+  // Dynamically load the Confetti component when the task is completed
+  useEffect(() => {
     if (completed) {
       import('react-confetti').then((module) => {
         setConfetti(module.default);
@@ -39,7 +42,7 @@ const App = () => {
         setTimeout(() => setShowConfetti(false), 7000); // Hide confetti after 7 seconds
       });
     }
-  }, [progress, title, days, completed]);
+  }, [completed]);
 
   const handleStart = () => {
     if (title && days > 0) {
@@ -63,7 +66,10 @@ const App = () => {
     if (updatedProgress[index] === false) {
       if (index === 0 || progress[index - 1]) {
         updatedProgress[index] = true; // Mark the current day as completed
-        setPopupMessage(`Great job on Day ${index + 1}! Keep it up!`); // Set popup message
+
+        // Show popup with dynamic position
+        setPopupMessage(`Great job on Day ${index + 1}! Keep it up!`);
+        setPopupTop(window.scrollY + 20); // Position popup 20px below current scroll position
         setShowPopup(true); // Show popup message
         setTimeout(() => setShowPopup(false), 3000); // Hide popup after 3 seconds
       }
@@ -137,7 +143,7 @@ const App = () => {
 
       {/* Popup Message */}
       {showPopup && (
-        <div className="popup-message">
+        <div className="popup-message" style={{ top: `${popupTop}px` }}>
           <p>{popupMessage}</p>
         </div>
       )}

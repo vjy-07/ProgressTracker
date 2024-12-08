@@ -50,21 +50,19 @@ button:hover {
 
 /* App.css */
 .popup-message {
-  position: fixed;
-  top: 10px;
-  left: 50%;
+  position: absolute; /* Use absolute positioning for dynamic top placement */
+  left: 50%; /* Center horizontally */
   transform: translateX(-50%);
-  background-color: rgba(0, 128, 0, 0.8); /* Green background */
+  z-index: 1000;
+  background-color: rgba(0, 128, 0, 0.9); /* Green background with transparency */
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 18px;
-  z-index: 1000;
-  opacity: 1;
-  transition: opacity 0.3s ease-in-out;
-  max-width: 90%; /* Ensures it doesn't stretch across the full width */
-  text-align: center; /* Centers the message */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  text-align: center;
 }
+
 
 .popup-message p {
   margin: 0;
