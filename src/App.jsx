@@ -10,7 +10,6 @@ const App = () => {
   const [Confetti, setConfetti] = useState(null);
   const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
   const [popupMessage, setPopupMessage] = useState(''); // State for the popup message
-  const [popupTop, setPopupTop] = useState(0); // Dynamic top position for popup
 
   // Load progress and title from localStorage when the app starts
   useEffect(() => {
@@ -38,8 +37,8 @@ const App = () => {
     if (completed) {
       import('react-confetti').then((module) => {
         setConfetti(module.default);
-        setShowConfetti(true); // Show confetti when task is completed
-        setTimeout(() => setShowConfetti(false), 7000); // Hide confetti after 7 seconds
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 7000);
       });
     }
   }, [completed]);
@@ -52,7 +51,6 @@ const App = () => {
   };
 
   const handleClear = () => {
-    // Reset the React state without affecting localStorage
     setTitle('');
     setDays('');
     setProgress([]);
@@ -62,31 +60,27 @@ const App = () => {
   const markDay = (index) => {
     const updatedProgress = [...progress];
 
-    // Mark the current day as completed or incomplete
     if (updatedProgress[index] === false) {
       if (index === 0 || progress[index - 1]) {
-        updatedProgress[index] = true; // Mark the current day as completed
+        updatedProgress[index] = true;
 
-        // Show popup with dynamic position
+        // Show popup
         setPopupMessage(`Great job on Day ${index + 1}! Keep it up!`);
-        setPopupTop(window.scrollY + 20); // Position popup 20px below current scroll position
-        setShowPopup(true); // Show popup message
-        setTimeout(() => setShowPopup(false), 3000); // Hide popup after 3 seconds
+        setShowPopup(true);
+        setTimeout(() => setShowPopup(false), 3000); // Hide after 3 seconds
       }
     } else {
-      // Unstreak the last completed day
       if (index === progress.length - 1 || !progress[index + 1]) {
-        updatedProgress[index] = false; // Unstreak (mark as incomplete)
+        updatedProgress[index] = false;
       }
     }
 
     setProgress(updatedProgress);
 
-    // Check if all days are completed to set the "completed" state
     if (updatedProgress.every((day) => day)) {
-      setCompleted(true); // Set completed to true when all days are completed
+      setCompleted(true);
     } else {
-      setCompleted(false); // Reset completed to false if not all days are completed
+      setCompleted(false);
     }
   };
 
@@ -143,7 +137,7 @@ const App = () => {
 
       {/* Popup Message */}
       {showPopup && (
-        <div className="popup-message" style={{ top: `${popupTop}px` }}>
+        <div className="popup-message">
           <p>{popupMessage}</p>
         </div>
       )}

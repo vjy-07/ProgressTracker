@@ -48,41 +48,41 @@ button:hover {
   margin-right: 20px;  /* Space between the "Start Tracking" and "Clear" buttons */
 }
 
-/* App.css */
+/* Popup Message */
 .popup-message {
-  position: absolute; /* Use absolute positioning for dynamic top placement */
+  position: fixed; /* Always stays on the top of the viewport */
+  top: 0; /* Align at the top */
   left: 50%; /* Center horizontally */
   transform: translateX(-50%);
-  z-index: 1000;
-  background-color: rgba(0, 128, 0, 0.9); /* Green background with transparency */
+  z-index: 10000; /* Ensure it appears above all other elements */
+  background-color: rgba(0, 128, 0, 0.9); /* Green background with slight transparency */
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
-  font-size: 18px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-size: 16px;
   text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 90%; /* Ensure popup fits on smaller screens */
 }
 
-
-.popup-message p {
-  margin: 0;
-}
-
-/* Adjustments for mobile devices */
+/* Adjustments for Responsive Design */
 @media (max-width: 768px) {
   .popup-message {
-    font-size: 16px; /* Smaller font size */
-    padding: 8px 15px; /* Smaller padding */
-    max-width: 90%; /* Make the popup narrower on mobile */
+    font-size: 14px;
+    padding: 8px 15px;
   }
 }
 
 @media (max-width: 480px) {
   .popup-message {
-    font-size: 14px; /* Even smaller font size for smaller screens */
-    padding: 6px 12px; /* Further reduce padding */
-    max-width: 95%; /* Ensure popup doesn't overflow */
+    font-size: 12px;
+    padding: 6px 12px;
   }
+}
+
+/* Add padding to ensure content is not overlapped */
+.app {
+  padding-top: 60px; /* Add padding equal to popup height */
 }
 
 
