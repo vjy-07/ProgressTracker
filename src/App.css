@@ -49,7 +49,6 @@ button:hover {
 }
 
 /* App.css */
-/* App.css */
 .popup-message {
   position: fixed;
   top: 10px;
@@ -63,16 +62,29 @@ button:hover {
   z-index: 1000;
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
+  max-width: 90%; /* Ensures it doesn't stretch across the full width */
+  text-align: center; /* Centers the message */
 }
 
 .popup-message p {
   margin: 0;
 }
 
-/* Optional fade-out effect after 3 seconds */
-.popup-message.fade-out {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+/* Adjustments for mobile devices */
+@media (max-width: 768px) {
+  .popup-message {
+    font-size: 16px; /* Smaller font size */
+    padding: 8px 15px; /* Smaller padding */
+    max-width: 90%; /* Make the popup narrower on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .popup-message {
+    font-size: 14px; /* Even smaller font size for smaller screens */
+    padding: 6px 12px; /* Further reduce padding */
+    max-width: 95%; /* Ensure popup doesn't overflow */
+  }
 }
 
 
